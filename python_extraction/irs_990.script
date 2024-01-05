@@ -1,0 +1,22 @@
+#!/bin/bash
+# when using this script make sure that the email and directory are for
+# the correct user
+#####  Constructed by HPC everywhere #####
+#SBATCH --mail-user=bmowens@iu.edu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=06:59:00
+#SBATCH --mem=4gb
+#SBATCH --mail-type=FAIL,BEGIN,END
+#SBATCH --job-name=irs_990_parsing
+#SBATCH --array=1-10
+######  Module commands #####
+module load python/3.8.2
+
+
+
+######  Job commands go below this line #####
+export IRSX_CACHE_DIRECTORY=/N/slate/bmowens/grants_and_foundations/xml_files
+export IRSX_WORKING_DIRECTORY=/N/slate/bmowens/grants_and_foundations/xml_files/XML
+python /N/slate/bmowens/grants_and_foundations/irs_990.py $SLURM_ARRAY_TASK_COUNT $SLURM_ARRAY_TASK_ID
